@@ -1,16 +1,55 @@
 # state_management_codelab
 
-A new Flutter project.
+## Pembahasan:
 
-## Getting Started
+  - ### Stateless Widget
+    Counter App yang kita buat dengan stateless widget, tidak dapat merubah value counter yang tampil pada User Interface. Sekalipun kita membuat method untuk merubah value counter, seperti contoh code berikut ini:
 
-This project is a starting point for a Flutter application.
+    ```dart
+    class CounterWidget extends StatelessWidget {
+      const CounterWidget({super.key});
 
-A few resources to get you started if this is your first Flutter project:
+      @override
+      Widget build(BuildContext context) {
+        int counter = 0;
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+        void increment() {
+          counter++;
+        }
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Counter Value: $counter'),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  increment();
+                },
+                child: const Text('Increment'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+    ```
+
+    Walaupun saat kita menekan tombol Increment yang akan menjalankan method increment(), value variabelnya berubah belakang tapi pada UInya tidak berubah. Itu karena pada saat widget tersebut di build, widget itu akan mengikuti value yang sudah dideklarasikan diawal. 
+
+  - ### Stateful Widget
+    Sedangkan jika kita membuat Counter Appnya menggunakan stateful widget, maka jika kita menekan tombol increment, value pada UInya akan ikut berubah. Karena stateful widget mempunyai method khusus yang digunakan untuk merubah tampilan UI jika ada interaksi atau value yang berubah.
+
+    ```dart
+    void incrementCounter() {
+      setState(() {
+        counter++;
+      });
+    }
+    ```
+
+    pada stateful widget terdapat method setState() yang berfungsi untuk merubah tampilan UI sesuai dengan value yang berubah.
+
+## Kesimpulan:
+  Jadi penggunaan Stateless dan Stateful Widget tergantung kebutuhan. Kalau kita ingin membuat UI yang statis atau tidak akan mengalami perubahan tampilan, maka disarankan untuk menggunakan Stateless Widget. Sedangkan kalau kita ingin membuat UI yang dinamis atau bisa berubah-ubah, makan gunakanlah Stateful Widget.
